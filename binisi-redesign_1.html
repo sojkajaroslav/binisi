@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovely Binisi — Lagotto Romagnolo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#2B1F16;
+    --espresso-soft:#4A3627;
+    --terracotta:#C1622D;
+    --terracotta-deep:#A34F22;
+    --forest:#3B4A34;
+    --sand:#F3E9DC;
+    --cream:#FBF7F1;
+    --line:rgba(43,31,22,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--espresso);
+    font-family:'Work Sans',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',serif;
+    font-weight:450;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- curly signature divider ---------- */
+  .curl{
+    width:74px;height:20px;
+    margin:0 auto;
+    opacity:0.85;
+  }
+  .curl path{
+    fill:none;
+    stroke:var(--terracotta);
+    stroke-width:2.4;
+    stroke-linecap:round;
+  }
+  .curl.left{margin:0;}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    background:rgba(251,247,241,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s ease;
+  }
+  .nav-inner{
+    max-width:1180px;margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'Fraunces',serif;
+    font-size:1.25rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .logo span{color:var(--terracotta);}
+  nav ul{display:flex;gap:34px;list-style:none;}
+  nav a{
+    font-size:0.92rem;
+    letter-spacing:0.02em;
+    color:var(--espresso-soft);
+    position:relative;
+    padding:4px 0;
+  }
+  nav a::after{
+    content:'';position:absolute;left:0;bottom:0;
+    width:0;height:1.5px;background:var(--terracotta);
+    transition:width .25s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--espresso);
+    color:var(--cream);
+    padding:10px 22px;
+    border-radius:999px;
+    font-size:0.88rem;
+    letter-spacing:0.02em;
+  }
+  .nav-cta:hover{background:var(--terracotta);}
+  .menu-toggle{
+    display:none;background:none;border:none;cursor:pointer;
+    width:30px;height:22px;position:relative;flex-shrink:0;
+    padding:0;
+  }
+  .menu-toggle span{
+    position:absolute;left:0;width:100%;height:2px;
+    background:var(--espresso);border-radius:2px;
+    transition:transform .3s ease, opacity .3s ease, top .3s ease;
+  }
+  .menu-toggle span:nth-child(1){top:0;}
+  .menu-toggle span:nth-child(2){top:10px;}
+  .menu-toggle span:nth-child(3){top:20px;}
+  .menu-toggle.open span:nth-child(1){top:10px;transform:rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){top:10px;transform:rotate(-45deg);}
+
+  .mobile-panel{
+    display:none;
+    max-height:0;
+    overflow:hidden;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    transition:max-height .35s ease;
+  }
+  .mobile-panel.open{max-height:420px;}
+  .mobile-panel ul{list-style:none;padding:8px 32px 20px;display:flex;flex-direction:column;gap:4px;}
+  .mobile-panel a{
+    display:block;padding:12px 0;
+    font-size:1rem;color:var(--espresso-soft);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-panel li:last-child a{border-bottom:none;}
+  .mobile-panel .nav-cta{
+    display:inline-block;margin-top:10px;
+    text-align:center;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;align-items:center;
+    padding-top:90px;
+    background:
+      radial-gradient(ellipse 900px 500px at 82% 18%, rgba(193,98,45,0.14), transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, var(--sand) 100%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:center;
+    width:100%;
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:12px;
+    font-size:0.82rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--forest);
+    margin-bottom:26px;
+  }
+  .eyebrow::before{
+    content:'';width:28px;height:1px;background:var(--forest);
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.4rem);
+    line-height:1.04;
+    color:var(--espresso);
+    margin-bottom:26px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--terracotta);
+  }
+  .hero p{
+    font-size:1.08rem;
+    max-width:480px;
+    color:var(--espresso-soft);
+    margin-bottom:38px;
+  }
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:15px 30px;
+    border-radius:999px;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    transition:all .25s ease;
+  }
+  .btn-primary{background:var(--terracotta);color:var(--cream);}
+  .btn-primary:hover{background:var(--terracotta-deep);transform:translateY(-2px);}
+  .btn-outline{border:1.4px solid var(--espresso);color:var(--espresso);}
+  .btn-outline:hover{background:var(--espresso);color:var(--cream);}
+
+  .hero-photo{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:22px;
+    background:
+      repeating-linear-gradient(135deg, rgba(43,31,22,0.05) 0 2px, transparent 2px 14px),
+      var(--sand);
+    border:1.5px dashed rgba(43,31,22,0.28);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;
+    color:var(--espresso-soft);
+    font-size:0.85rem;
+    text-align:center;
+    padding:20px;
+  }
+  .hero-photo .ph-label{font-family:'Fraunces',serif;font-style:italic;font-size:1rem;}
+  .hero-badge{
+    position:absolute;
+    bottom:-22px;left:-22px;
+    background:var(--espresso);
+    color:var(--cream);
+    padding:18px 22px;
+    border-radius:16px;
+    box-shadow:0 18px 40px rgba(43,31,22,0.25);
+    max-width:220px;
+  }
+  .hero-badge .num{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--terracotta);}
+  .hero-badge .lbl{font-size:0.78rem;opacity:0.8;letter-spacing:0.02em;}
+
+  /* ---------- section basics ---------- */
+  section{padding:120px 0;}
+  .section-head{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 64px;
+  }
+  .section-head .eyebrow{justify-content:center;}
+  .section-head .eyebrow::before{display:none;}
+  .section-head h2{font-size:clamp(2rem,3.4vw,2.8rem);margin:14px 0;}
+  .section-head p{color:var(--espresso-soft);font-size:1.02rem;}
+
+  /* ---------- o nas ---------- */
+  .about{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:72px;
+    align-items:center;
+  }
+  .about-photo{
+    aspect-ratio:1/1.05;
+    border-radius:20px;
+    background:var(--sand);
+    border:1.5px dashed rgba(43,31,22,0.28);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--espresso-soft);font-size:0.85rem;text-align:center;padding:20px;
+  }
+  .about-text .eyebrow::before{display:none;}
+  .about-text h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:20px;}
+  .about-text p{color:var(--espresso-soft);margin-bottom:18px;max-width:520px;}
+  .about-stats{
+    display:flex;gap:40px;
+    margin-top:34px;
+    padding-top:34px;
+    border-top:1px solid var(--line);
+  }
+  .about-stats .num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--terracotta);}
+  .about-stats .lbl{font-size:0.82rem;color:var(--espresso-soft);}
+
+  /* ---------- pilíře (zdraví/povaha/servis) ---------- */
+  .pillars{background:var(--espresso);color:var(--cream);}
+  .pillars .section-head p{color:rgba(251,247,241,0.65);}
+  .pillars .section-head .eyebrow{color:var(--terracotta);}
+  .pillar-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(251,247,241,0.14);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .pillar{
+    background:var(--espresso);
+    padding:44px 36px;
+    transition:background .3s ease;
+  }
+  .pillar:hover{background:var(--espresso-soft);}
+  .pillar .mark{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:0.95rem;
+    color:var(--terracotta);
+    margin-bottom:18px;
+    display:block;
+  }
+  .pillar h3{font-size:1.3rem;margin-bottom:14px;}
+  .pillar p{color:rgba(251,247,241,0.7);font-size:0.94rem;}
+
+  /* ---------- naši psi ---------- */
+  .dogs-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .dog-card{
+    border-radius:18px;
+    overflow:hidden;
+    background:var(--sand);
+    border:1px solid var(--line);
+  }
+  .dog-photo{
+    aspect-ratio:4/5;
+    background:repeating-linear-gradient(135deg, rgba(43,31,22,0.05) 0 2px, transparent 2px 14px);
+    border-bottom:1.5px dashed rgba(43,31,22,0.28);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--espresso-soft);font-size:0.82rem;text-align:center;padding:16px;
+  }
+  .dog-info{padding:22px 24px 26px;}
+  .dog-info h3{font-size:1.2rem;margin-bottom:4px;}
+  .dog-info .role{font-size:0.82rem;color:var(--terracotta);letter-spacing:0.02em;margin-bottom:10px;}
+  .dog-info p{font-size:0.9rem;color:var(--espresso-soft);}
+
+  /* ---------- stenata cta ---------- */
+  .puppies{
+    background:linear-gradient(135deg, var(--forest) 0%, #2c3728 100%);
+    color:var(--cream);
+    border-radius:26px;
+    padding:70px 60px;
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:40px;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .puppies::after{
+    content:'';
+    position:absolute;right:-60px;top:-60px;
+    width:280px;height:280px;
+    border-radius:50%;
+    background:rgba(193,98,45,0.18);
+  }
+  .puppies h2{font-size:clamp(1.9rem,3vw,2.6rem);margin-bottom:16px;}
+  .puppies p{color:rgba(251,247,241,0.75);max-width:440px;margin-bottom:0;}
+  .puppies .btn-primary{background:var(--terracotta);}
+  .puppies-photo{
+    aspect-ratio:5/4;
+    border-radius:16px;
+    background:rgba(251,247,241,0.06);
+    border:1.5px dashed rgba(251,247,241,0.3);
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(251,247,241,0.65);font-size:0.85rem;text-align:center;padding:20px;
+    position:relative;z-index:1;
+  }
+
+  /* ---------- citace ---------- */
+  .quote-section{text-align:center;padding:110px 0 90px;}
+  .quote-section blockquote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:clamp(1.5rem,3vw,2.3rem);
+    color:var(--espresso);
+    max-width:760px;
+    margin:24px auto 22px;
+    line-height:1.35;
+  }
+  .quote-section cite{
+    font-style:normal;
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--espresso-soft);
+  }
+
+  /* ---------- kontakt ---------- */
+  .contact{
+    background:var(--sand);
+  }
+  .contact-inner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+  }
+  .contact h2{font-size:clamp(1.9rem,3vw,2.6rem);margin-bottom:18px;}
+  .contact-lead{color:var(--espresso-soft);margin-bottom:36px;max-width:440px;}
+  .contact-row{
+    display:flex;align-items:center;gap:18px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .contact-row:last-of-type{border-bottom:1px solid var(--line);}
+  .contact-row .ico{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--espresso);color:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-style:italic;font-size:1rem;
+    flex-shrink:0;
+  }
+  .contact-row .lbl{font-size:0.78rem;color:var(--espresso-soft);letter-spacing:0.03em;text-transform:uppercase;}
+  .contact-row .val{font-size:1.05rem;}
+  .socials{display:flex;gap:14px;margin-top:30px;}
+  .socials a{
+    width:44px;height:44px;border-radius:50%;
+    border:1.4px solid var(--espresso);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.8rem;letter-spacing:0.02em;
+    transition:all .25s ease;
+  }
+  .socials a:hover{background:var(--espresso);color:var(--cream);}
+  .map-photo{
+    border-radius:18px;
+    background:repeating-linear-gradient(135deg, rgba(43,31,22,0.05) 0 2px, transparent 2px 14px);
+    border:1.5px dashed rgba(43,31,22,0.28);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--espresso-soft);font-size:0.85rem;text-align:center;padding:20px;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--espresso);
+    color:rgba(251,247,241,0.6);
+    padding:50px 0 34px;
+  }
+  .footer-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:20px;
+    padding-bottom:30px;
+    border-bottom:1px solid rgba(251,247,241,0.14);
+  }
+  .footer-logo{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--cream);}
+  footer nav ul{display:flex;gap:26px;list-style:none;flex-wrap:wrap;}
+  footer nav a{font-size:0.86rem;}
+  footer nav a:hover{color:var(--terracotta);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;
+    padding-top:26px;
+    font-size:0.78rem;
+    flex-wrap:wrap;gap:10px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:50px;}
+    .hero{min-height:auto;padding-bottom:80px;}
+    .about{grid-template-columns:1fr;}
+    .pillar-grid{grid-template-columns:1fr;}
+    .dogs-grid{grid-template-columns:repeat(2,1fr);}
+    .puppies{grid-template-columns:1fr;padding:48px 32px;}
+    .contact-inner{grid-template-columns:1fr;}
+    nav ul{display:none;}
+    .menu-toggle{display:block;}
+    .mobile-panel{display:block;}
+  }
+  @media (max-width:600px){
+    .dogs-grid{grid-template-columns:1fr;}
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
+    .about-stats{gap:26px;}
+    .hero-badge{position:static;margin-top:20px;max-width:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo">Lovely <span>Binisi</span></div>
+    <nav>
+      <ul>
+        <li><a href="#o-nas">O nás</a></li>
+        <li><a href="#psi">Naši psi</a></li>
+        <li><a href="#zdravi">Chov</a></li>
+        <li><a href="#stenata">Štěňata</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+    <a href="#kontakt" class="nav-cta">Napište nám</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Otevřít menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <ul>
+      <li><a href="#o-nas">O nás</a></li>
+      <li><a href="#psi">Naši psi</a></li>
+      <li><a href="#zdravi">Chov</a></li>
+      <li><a href="#stenata">Štěňata</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Napište nám</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <div class="eyebrow">Chovatelská stanice · Jižní Čechy</div>
+      <h1>Lagotto&nbsp;Romagnolo<br>s <em>duší</em> rodinného psa</h1>
+      <p>Jsme malá chovatelská stanice s více než 20 lety zkušeností. Žádné kotce — naši psi vyrůstají v domku se zahradou jako plnohodnotní členové rodiny.</p>
+      <div class="btn-row">
+        <a href="#stenata" class="btn btn-primary">Zajímá mě štěňátko</a>
+        <a href="#o-nas" class="btn btn-outline">Poznejte náš příběh</a>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <div class="hero-photo">
+        <span class="ph-label">foto: Lagotto na zahradě</span>
+        <span>místo pro hlavní fotografii</span>
+      </div>
+      <div class="hero-badge">
+        <div class="num">20+</div>
+        <div class="lbl">let zkušeností v chovu psů</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="o-nas">
+  <div class="wrap about">
+    <div class="about-photo reveal">
+      <span>foto: rodina s Lagotty doma</span>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow">Něco málo o nás</div>
+      <h2>Chov je u nás rodinná záležitost</h2>
+      <p>Naše chovatelská stanice byla založena v roce 2002, kdy jsme se začali věnovat chovu Parson Russell teriérů. V současnosti v naší domácnosti žije jeden Parson Russell teriér a tři Lagotta.</p>
+      <p>Díky absolutní podpoře rodiny a svobodnému uměleckému povolání máme to štěstí, že můžeme našim psům věnovat veškerou péči, pozornost a čas, které potřebují.</p>
+      <a href="#kontakt" class="btn btn-outline">Více o nás</a>
+      <div class="about-stats">
+        <div><div class="num">4</div><div class="lbl">psi v naší smečce</div></div>
+        <div><div class="num">2002</div><div class="lbl">založení stanice</div></div>
+        <div><div class="num">100%</div><div class="lbl">domácí odchov</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars" id="zdravi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Náš přístup</div>
+      <h2>Zdraví, povaha a péče na prvním místě</h2>
+      <p>Tři pilíře, na kterých stavíme každý odchov Lovely Binisi.</p>
+    </div>
+    <div class="pillar-grid reveal">
+      <div class="pillar">
+        <span class="mark">01</span>
+        <h3>Zdraví</h3>
+        <p>Všechny chovné psy testujeme na dědičně přenosná onemocnění, a to i nad rámec povinných testů vyžadovaných chovatelským klubem. Do chovu nikdy nezařadíme jedince s rizikem přenosu genetické vady.</p>
+      </div>
+      <div class="pillar">
+        <span class="mark">02</span>
+        <h3>Povaha</h3>
+        <p>Lagotto je milý, přátelský a veselý pes — a přesně taková chceme, aby byla i naše štěňátka. Raná socializace od narození, v úzkém kontaktu s člověkem, je pro nás naprostou samozřejmostí.</p>
+      </div>
+      <div class="pillar">
+        <span class="mark">03</span>
+        <h3>Chovatelský servis</h3>
+        <p>S majiteli našich odchovů neztrácíme kontakt ani po odchodu štěněte do nového domova. Poradíme s péčí, výchovou, výstavami i chovem — často z toho vznikne dlouholeté přátelství.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="psi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Naše smečka</div>
+      <h2>Psi, kteří dělají Lovely Binisi tím, čím je</h2>
+      <p>Každý z nich má vlastní povahu, vlastní příběh a zásadní roli v naší rodině i v chovu.</p>
+    </div>
+    <div class="dogs-grid reveal">
+      <div class="dog-card">
+        <div class="dog-photo">foto: Luigi</div>
+        <div class="dog-info">
+          <h3>Luigi</h3>
+          <div class="role">Chovný pes · Adamov, ČR</div>
+          <p>„Showing is a game, breeding is an art!“ — náš základní kámen a inspirace pro filozofii chovu.</p>
+        </div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-photo">foto: chovná fenka</div>
+        <div class="dog-info">
+          <h3>Jméno feny</h3>
+          <div class="role">Chovná fenka</div>
+          <p>Krátký profil s charakterem, výstavními úspěchy a zdravotními výsledky.</p>
+        </div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-photo">foto: rodinný mazlíček</div>
+        <div class="dog-info">
+          <h3>Jméno psa</h3>
+          <div class="role">Parson Russell teriér · rodinný člen</div>
+          <p>I on je nedílnou součástí naší smečky a každodenního života doma.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stenata">
+  <div class="wrap">
+    <div class="puppies reveal">
+      <div>
+        <div class="eyebrow" style="color:var(--terracotta);">Aktuální i plánované vrhy</div>
+        <h2>Máte zájem o naše štěňátko?</h2>
+        <p>Pokud uvažujete o pořízení štěněte Lagotto Romagnolo a zaujali vás naši psi i filozofie naší chovatelské stanice, neváhejte nás kontaktovat.</p>
+        <div class="btn-row" style="margin-top:30px;">
+          <a href="#kontakt" class="btn btn-primary">Kontaktujte nás</a>
+        </div>
+      </div>
+      <div class="puppies-photo">foto: štěňátka</div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="curl" aria-hidden="true">
+    <svg viewBox="0 0 74 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10 C 10 -2, 18 22, 26 10 C 34 -2, 42 22, 50 10 C 58 -2, 66 22, 72 10"/></svg>
+  </div>
+  <blockquote class="reveal">„Showing is a game, breeding is an art!“</blockquote>
+  <cite>Luigi · Lovely Binisi</cite>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap contact-inner">
+    <div class="reveal">
+      <div class="eyebrow">Ozvěte se nám</div>
+      <h2>Pojďme si popovídat o Lagottu</h2>
+      <p class="contact-lead">Ať už řešíte štěňátko, výstavy nebo chov — jsme tu pro vás.</p>
+
+      <div class="contact-row">
+        <div class="ico">T</div>
+        <div>
+          <div class="lbl">Telefon</div>
+          <div class="val">+420 608 306 503</div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ico">@</div>
+        <div>
+          <div class="lbl">E-mail</div>
+          <div class="val">katerina.sojkova@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ico">M</div>
+        <div>
+          <div class="lbl">Kde nás najdete</div>
+          <div class="val">Jižní Čechy</div>
+        </div>
+      </div>
+
+      <div class="socials">
+        <a href="https://www.facebook.com/lovely.binisi" title="Facebook">FB</a>
+        <a href="https://www.instagram.com/lagotto_lovely_binisi/" title="Instagram">IG</a>
+        <a href="https://www.youtube.com/@LovelyBinisi" title="YouTube">YT</a>
+      </div>
+    </div>
+    <div class="map-photo reveal">místo pro mapu / fotku domova</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">Lovely Binisi</div>
+      <nav>
+        <ul>
+          <li><a href="#o-nas">O nás</a></li>
+          <li><a href="#psi">Naši psi</a></li>
+          <li><a href="#stenata">Štěňata</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lovely Binisi — Chovatelská stanice Lagotto Romagnolo</span>
+      <span>Návrh: moderní redesign webu</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // header background on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', ()=>{
+    header.style.boxShadow = window.scrollY > 20 ? '0 8px 30px rgba(43,31,22,0.08)' : 'none';
+  });
+
+  // mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  function closeMenu(){
+    menuToggle.classList.remove('open');
+    mobilePanel.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded','false');
+  }
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = mobilePanel.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobilePanel.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMenu));
+</script>
+
+</body>
+</html>

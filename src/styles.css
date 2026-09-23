@@ -13,13 +13,10 @@
 .photo-card:hover img{transform:none}
 .puppy-photo{background:#f1e4e1}
 .wide-photo{height:min(680px,85vw);background:var(--cream)}
-/* More breathing room between the opening photo and the welcome section. */
-.hero + .intro{padding-top:clamp(144px,13vw,184px)}
 @media(max-width:700px){
-  .hero + .intro{padding-top:112px}
   .photo-card,.photo-card.large{height:500px}
   .hero{height:auto;min-height:0}
   .hero-image{top:0;bottom:auto;width:100%;height:min(80vw,320px);object-position:center top}
   .hero-shade{background:none}
-  .hero-inner{min-height:740px;padding-top:min(80vw,320px);padding-bottom:55px;justify-content:flex-end}
+  .hero-inner{height:auto;min-height:0;padding-top:calc(min(80vw,320px) + 88px);padding-bottom:55px;justify-content:flex-start}
 }

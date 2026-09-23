@@ -2,3 +2,16 @@
 
 /* Brand image and editorial hero */
 .brand img{width:115px;height:86px}.hero{background:#743e58}.hero-image{left:auto;width:55%;object-position:center 54%}.hero-shade{background:linear-gradient(90deg,#743e58 0%,#743e58 39%,#743e58eb 48%,transparent 75%)}.photo-card.large{background:#743e58}.photo-card.large img{object-fit:contain}.photo-card.large:hover img{transform:none}@media(max-width:700px){.brand img{width:83px;height:67px}.hero-image{inset:0;width:100%;object-position:center 50%}.hero-shade{background:linear-gradient(90deg,#51283edc,#51283e8a)}}
+
+/* Keep every source photo fully visible, including on small screens. */
+.hero-image,.photo-card img,.puppy-photo img,.wide-photo img,.dog-image img{object-fit:contain}
+.photo-card,.photo-card.large{background:#e9ddd8}
+.photo-card:hover img{transform:none}
+.puppy-photo{background:#f1e4e1}
+.wide-photo{height:min(680px,85vw);background:var(--cream)}
+@media(max-width:700px){
+  .hero{height:auto;min-height:0}
+  .hero-image{top:0;bottom:auto;width:100%;height:min(80vw,320px);object-position:center top}
+  .hero-shade{background:none}
+  .hero-inner{min-height:740px;padding-top:min(80vw,320px);padding-bottom:55px;justify-content:flex-end}
+}

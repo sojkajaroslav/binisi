@@ -5,11 +5,16 @@
 
 /* Keep every source photo fully visible, including on small screens. */
 .hero-image,.photo-card img,.puppy-photo img,.wide-photo img,.dog-image img{object-fit:contain}
-.photo-card,.photo-card.large{background:#e9ddd8}
+.photo-card,.photo-card.large{display:flex;flex-direction:column;height:540px;background:#e9ddd8}
+.photo-card.large{height:620px}
+.photo-card img{height:calc(100% - 112px);flex:none}
+.photo-card:after{display:none}
+.photo-overlay{position:static;height:112px;flex:none;padding:14px 25px;gap:3px;align-content:center;background:#743e58}
 .photo-card:hover img{transform:none}
 .puppy-photo{background:#f1e4e1}
 .wide-photo{height:min(680px,85vw);background:var(--cream)}
 @media(max-width:700px){
+  .photo-card,.photo-card.large{height:500px}
   .hero{height:auto;min-height:0}
   .hero-image{top:0;bottom:auto;width:100%;height:min(80vw,320px);object-position:center top}
   .hero-shade{background:none}

@@ -46,3 +46,14 @@
   .puppy-gallery figure{margin-bottom:16px}
   .puppy-contact-inner{flex-direction:column;align-items:flex-start}
 }
+
+/* Larger Lovely Binisi logo in the shared navigation. */
+.header{height:126px}
+.brand img{width:150px;height:113px}
+.hero{height:min(690px,calc(100svh - 126px))}
+@media(max-width:700px){
+  .header{height:94px}
+  .brand img{width:112px;height:84px}
+  .header nav{top:94px}
+  .hero{height:auto}
+}

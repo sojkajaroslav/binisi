@@ -57,3 +57,7 @@
   .header nav{top:94px}
   .hero{height:auto}
 }
+
+/* Overlay only the edited subtitle so the original dog illustration stays exact. */
+.brand{position:relative}
+.brand .brand-subtitle{position:absolute;inset:0;clip-path:inset(80.5% 0 8.8% 0);pointer-events:none}

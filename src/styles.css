@@ -20,3 +20,29 @@
   .hero-shade{background:none}
   .hero-inner{height:auto;min-height:0;padding-top:calc(min(80vw,320px) + 88px);padding-bottom:55px;justify-content:flex-start}
 }
+
+/* Puppies: story and uncropped, responsive photo gallery. */
+.puppy-story-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:9%;align-items:start}
+.puppy-gallery-section{background:var(--cream);padding:96px 0 112px}
+.puppy-gallery-head{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:40px}
+.puppy-gallery-head h2{margin-bottom:0}
+.puppy-gallery-head p{max-width:360px;margin:0 0 8px;color:var(--muted);font-size:17px;line-height:1.8}
+.puppy-gallery-lead,.puppy-gallery figure{margin:0;background:#e9ddd8}
+.puppy-gallery-lead{margin-bottom:20px}
+.puppy-gallery-lead img,.puppy-gallery img{display:block;width:100%;height:auto}
+.puppy-gallery{columns:3;column-gap:20px}
+.puppy-gallery figure{break-inside:avoid;margin-bottom:20px}
+.puppy-contact-inner{display:flex;justify-content:space-between;align-items:center;gap:32px}
+.puppy-contact h2{margin-top:20px}
+@media(max-width:1000px){.puppy-gallery{columns:2}}
+@media(max-width:700px){
+  .puppy-story-grid{grid-template-columns:1fr;gap:30px}
+  .puppy-gallery-section{padding:72px 0 80px}
+  .puppy-gallery-head{display:block;margin-bottom:30px}
+  .puppy-gallery-head h2{font-size:43px}
+  .puppy-gallery-head p{margin-top:20px}
+  .puppy-gallery-lead{margin-bottom:16px}
+  .puppy-gallery{columns:1}
+  .puppy-gallery figure{margin-bottom:16px}
+  .puppy-contact-inner{flex-direction:column;align-items:flex-start}
+}

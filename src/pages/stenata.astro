@@ -1,5 +1,72 @@
 ---
 import Base from '../layouts/Base.astro';
-const litters=[{name:'Vrh C · Ciao',date:'11. 11. 2025',description:'Narodilo se nám 5 štěňátek: 2 pejsci a 3 fenky.'},{name:'Vrh B · Bella',date:'19. 2. 2025',description:'Fionce se narodilo 7 štěňátek: 5 pejsků a 2 fenky.'},{name:'Vrh A · Aqua',date:'27. 9. 2024',description:'Nikitce se narodilo 6 štěňátek: 3 pejsci a 3 fenky.'}];
+
+const photos = [
+  { file: 'dsc00849', width: 1280, height: 960, alt: 'Novorozená štěňata Lagotto Romagnolo v náručí' },
+  { file: 'dsc01250', width: 1280, height: 1280, alt: 'Hnědobílé štěně sedící venku' },
+  { file: 'dsc_0797', width: 1280, height: 854, alt: 'Hnědobílé štěně odpočívá venku' },
+  { file: 'dsc_0546', width: 1280, height: 1280, alt: 'Dvě světlá štěňata Lagotto Romagnolo' },
+  { file: 'dsc_1759', width: 1280, height: 854, alt: 'Dvě štěňata si spolu hrají na trávě' },
+  { file: 'dsc_1923', width: 1280, height: 1280, alt: 'Hnědobílé štěně běží po trávě' },
+  { file: 'img_4504', width: 960, height: 1280, alt: 'Dvě štěňata v náručí' },
+  { file: 'dsc_0593', width: 1280, height: 1280, alt: 'Světlé a hnědobílé štěně vedle sebe' },
+  { file: 'dsc_4775', width: 854, height: 1280, alt: 'Hnědé štěně u modrého tunelu na zahradě' },
+  { file: 'dsc_0790', width: 1280, height: 854, alt: 'Tři světlá štěňata odpočívají společně' },
+  { file: 'dsc_1280', width: 1024, height: 1280, alt: 'Hnědobílé štěně v náručí' },
+];
 ---
-<Base title="Štěňata | Lovely Binisi"><section class="page-hero"><div class="wrap"><div class="eyebrow">NAŠE ODCHOVY</div><h1>Štěňata<span class="accent">.</span></h1><p>Od prvních dnů vyrůstají v blízkosti lidí a v rytmu běžného domácího života.</p></div></section><section class="section"><div class="wrap litters-grid"><div class="litters-intro"><div class="eyebrow">NAŠE VRHY</div><h2>První kroky<br/><em>začínají doma.</em></h2><p>Povaha a socializace štěňat jsou pro nás stejně důležité jako zdraví. O další informace o štěňatech nám můžete napsat.</p><a class="text-link" href="/kontakt/">Kontaktovat nás <span>↗</span></a></div><div class="litters-list">{litters.map(l=><article class="litter"><span class="eyebrow">{l.date}</span><h3>{l.name}</h3><p>{l.description}</p></article>)}</div></div></section><section class="wide-photo puppies-wide"><img src="/images/puppies.jpg" alt="Štěňata Lovely Binisi" loading="lazy"/></section></Base>
+<Base title="Štěňata | Lovely Binisi" description="Jak u nás vyrůstají štěňata Lagotto Romagnolo: v domácím prostředí, v blízkosti lidí a s dostatkem prostoru pro hru a poznávání.">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">LOVELY BINISI · LAGOTTO ROMAGNOLO</div>
+      <h1>Štěňata<span class="accent">.</span></h1>
+      <p>Jejich první týdny jsou plné blízkosti, objevování a malých každodenních pokroků.</p>
+    </div>
+  </section>
+
+  <section class="section puppy-story">
+    <div class="wrap puppy-story-grid">
+      <div>
+        <div class="eyebrow">JAK U NÁS VYRŮSTAJÍ</div>
+        <h2>Od prvních dnů<br/><em>součástí domova.</em></h2>
+      </div>
+      <div class="prose">
+        <p>Naše štěňata vyrůstají v domácím prostředí a v blízkém kontaktu s námi. Od začátku poznávají lidi, běžné zvuky a rytmus každodenního života.</p>
+        <p>Socializace pro nás znamená citlivě je seznamovat s novými podněty. Mají čas na hru, odpočinek i zkoumání okolí. Každé štěně získává zkušenosti postupně, podle svého věku a povahy.</p>
+        <p>Chceme, aby jejich první kroky do nového domova vycházely z prostředí, kde se mohou cítit bezpečně a přirozeně rozvíjet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="puppy-gallery-section" aria-labelledby="puppy-gallery-title">
+    <div class="wrap">
+      <div class="puppy-gallery-head">
+        <div>
+          <div class="eyebrow">MOMENTKY Z ODCHOVU</div>
+          <h2 id="puppy-gallery-title">Malé tlapky.<br/><em>Velké objevy.</em></h2>
+        </div>
+        <p>Podívejte se, jak u nás štěňata rostou, hrají si a poznávají svět.</p>
+      </div>
+      <figure class="puppy-gallery-lead">
+        <img src="/images/puppy-dsc_1433.webp" srcset="/images/puppy-dsc_1433-640.webp 640w, /images/puppy-dsc_1433.webp 1280w" sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1280px) calc(100vw - 80px), 1200px" width="1280" height="854" alt="Skupinka štěňat Lagotto Romagnolo na zahradě" loading="lazy" decoding="async"/>
+      </figure>
+      <div class="puppy-gallery">
+        {photos.map(({ file, width, height, alt }) => (
+          <figure>
+            <img src={`/images/puppy-${file}.webp`} srcset={`/images/puppy-${file}-640.webp ${width / 2}w, /images/puppy-${file}.webp ${width}w`} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1020px) calc((100vw - 56px) / 2), 380px" width={width} height={height} alt={alt} loading="lazy" decoding="async"/>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section puppy-contact">
+    <div class="wrap puppy-contact-inner">
+      <div>
+        <div class="eyebrow">CHCETE SE O NICH DOZVĚDĚT VÍC?</div>
+        <h2>Rádi vám o našich<br/><em>štěňatech povíme.</em></h2>
+      </div>
+      <a class="button button-dark" href="/kontakt/">Napište nám <span>↗</span></a>
+    </div>
+  </section>
+</Base>

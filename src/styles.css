@@ -66,3 +66,8 @@
 .header nav a{font-size:15px}
 @media(max-width:900px){.header nav a{font-size:12.5px}}
 @media(max-width:700px){.header nav a{font-size:16px}}
+
+/* Contact portrait: keep both the person and dog visible. */
+.contact-photo{display:flex;justify-content:center;margin-top:64px}
+.contact-photo img{width:min(100%,680px);height:auto}
+@media(max-width:700px){.contact-photo{margin-top:42px}}

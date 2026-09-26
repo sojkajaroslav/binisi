@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import LinkIcon from '../components/LinkIcon.astro';
 
 const photos = [
   { file: 'dsc00849', width: 1280, height: 960, alt: 'Novorozená štěňata Lagotto Romagnolo v náručí' },
@@ -66,7 +67,7 @@ const photos = [
         <div class="eyebrow">CHCETE SE O NICH DOZVĚDĚT VÍC?</div>
         <h2>Rádi vám o našich<br/><em>štěňatech povíme.</em></h2>
       </div>
-      <a class="button button-dark" href="/kontakt/">Napište nám <span>↗</span></a>
+      <a class="button button-dark" href="/kontakt/">Napište nám <LinkIcon name="paw" /></a>
     </div>
   </section>
 </Base>

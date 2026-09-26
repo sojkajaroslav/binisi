@@ -69,5 +69,10 @@
 
 /* Contact portrait: keep both the person and dog visible. */
 .contact-photo{display:flex;justify-content:center;margin-top:64px}
-.contact-photo img{width:min(100%,680px);height:auto}
+.contact-photo img{width:min(100%,440px);height:auto}
 @media(max-width:700px){.contact-photo{margin-top:42px}}
+
+/* Small graphic symbols alongside links throughout the site. */
+.link-icon{display:inline-block;flex:none;width:1.15em;height:1.15em;vertical-align:-.2em;stroke:currentColor}
+.photo-overlay>span .link-icon{margin-left:.25em}
+.contact-details a .link-icon,.socials a .link-icon{margin-left:.2em}

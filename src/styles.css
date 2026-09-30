@@ -76,3 +76,25 @@
 .link-icon{display:inline-block;flex:none;width:1.15em;height:1.15em;vertical-align:-.2em;stroke:currentColor}
 .photo-overlay>span .link-icon{margin-left:.25em}
 .contact-details a .link-icon,.socials a .link-icon{margin-left:.2em}
+
+/* About page: story and uncropped photographs. */
+.about-intro .prose p{margin-bottom:24px}
+.about-photo-pair{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:24px}
+.about-photo-pair figure,.about-chapter figure,.about-gallery figure{margin:0;background:var(--cream)}
+.about-photo-pair img,.about-chapter img,.about-gallery img{display:block;width:100%;height:auto}
+.about-chapter-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:8%}
+.about-chapter .prose h2{margin:0 0 35px}
+.about-chapter .prose p:last-child{margin-bottom:0}
+.about-chapter-muted{background:var(--cream)}
+.about-chapter-muted figure{background:#e9ddd8}
+.about-gallery-section h2{margin-bottom:40px}
+.about-gallery{columns:4;column-gap:18px}
+.about-gallery figure{break-inside:avoid;margin-bottom:18px}
+@media(max-width:900px){.about-chapter-grid{gap:5%}.about-gallery{columns:2}}
+@media(max-width:700px){
+  .about-photo-pair,.about-chapter-grid{grid-template-columns:1fr;gap:24px}
+  .about-chapter .prose h2{margin-bottom:26px}
+  .about-chapter-muted figure{order:2}
+  .about-gallery{columns:1}
+  .about-gallery-section h2{margin-bottom:28px}
+}

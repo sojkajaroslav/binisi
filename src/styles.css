@@ -121,3 +121,9 @@
   .home-truffles-grid img{max-width:100%}
   .home-pack-lead{font-size:16px}
 }
+
+/* On phones the complete hero photo fills the screen width in normal flow. */
+@media(max-width:700px){
+  .hero-image{position:relative;inset:auto;width:100%;height:auto;object-fit:contain}
+  .hero-inner{padding-top:54px}
+}

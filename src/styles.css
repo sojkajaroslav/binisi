@@ -111,6 +111,7 @@
 .home-truffles-grid p,.home-contact-lead{max-width:570px;color:var(--muted);font-size:17px;line-height:1.85}
 .home-truffles-grid p{margin:28px 0 0}
 .home-contact-lead{margin:22px 0 0}
+.values .value-grid h3{margin-top:8px}
 @media(max-width:900px){.home-moments-grid{gap:14px}.home-truffles-grid{gap:6%}}
 @media(max-width:700px){
   .home-moments{padding-bottom:72px}

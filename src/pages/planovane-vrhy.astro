@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import LinkIcon from '../components/LinkIcon.astro';
+---
+<Base
+  title="Plánované vrhy | Lovely Binisi"
+  description="Informace o plánovaných vrzích chovatelské stanice Lovely Binisi – Lagotto Romagnolo."
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">LOVELY BINISI · LAGOTTO ROMAGNOLO</div>
+      <h1>Plánované vrhy</h1>
+      <p>Aktuální informace pro zájemce o štěně z naší chovatelské stanice.</p>
+    </div>
+  </section>
+
+  <section class="section planned-litters">
+    <div class="wrap planned-litters-grid">
+      <div>
+        <div class="eyebrow">AKTUÁLNĚ PLÁNUJEME</div>
+        <h2>Budoucí vrhy<br/><em>Lovely Binisi</em></h2>
+      </div>
+
+      <div class="prose planned-litters-copy">
+        <p>
+          Na této stránce budeme průběžně zveřejňovat informace o našich plánovaných vrzích,
+          předpokládaných termínech a rodičích štěňat.
+        </p>
+        <p>
+          Podrobnosti o konkrétním plánovaném spojení zde doplníme, jakmile budou aktuální.
+        </p>
+        <p>
+          Pokud máte o štěně zájem, rádi se s vámi nejprve poznáme a zodpovíme vaše otázky
+          o plemeni, našem odchovu i životě se štěnětem Lagotto Romagnolo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section puppy-contact">
+    <div class="wrap puppy-contact-inner">
+      <div>
+        <div class="eyebrow">MÁTE ZÁJEM O ŠTĚNĚ?</div>
+        <h2>Napište nám,<br/><em>rádi se ozveme</em></h2>
+      </div>
+      <a class="button button-dark" href="/kontakt/">Kontaktujte nás <LinkIcon name="paw" /></a>
+    </div>
+  </section>
+
+  <style>
+    .planned-litters-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: clamp(48px, 8vw, 120px);
+      align-items: start;
+    }
+
+    .planned-litters-copy {
+      max-width: 680px;
+    }
+
+    @media (max-width: 760px) {
+      .planned-litters-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</Base>

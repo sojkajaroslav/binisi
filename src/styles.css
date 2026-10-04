@@ -128,4 +128,6 @@
   .hero-inner{padding-top:54px}
   .puppy-photo{height:auto}
   .puppy-photo img{width:100%;height:auto}
+  .photo-card.large{height:auto}
+  .photo-card.large img{width:100%;height:auto}
 }

@@ -5,49 +5,119 @@ import LinkIcon from '../components/LinkIcon.astro';
 <Base
   title="Plánované vrhy | Lovely Binisi"
   description="Informace o plánovaných vrzích chovatelské stanice Lovely Binisi – Lagotto Romagnolo."
+  noindex={true}
 >
-  <section class="page-hero">
-    <div class="wrap">
+  <section class="password-gate" id="passwordGate">
+    <div class="wrap password-gate-inner">
       <div class="eyebrow">LOVELY BINISI · LAGOTTO ROMAGNOLO</div>
       <h1>Plánované vrhy</h1>
-      <p>Aktuální informace pro zájemce o štěně z naší chovatelské stanice.</p>
+      <p>Tato stránka je určena zájemcům o štěně. Pro zobrazení zadejte heslo.</p>
+
+      <form class="password-form" id="passwordForm">
+        <label for="pagePassword">Heslo</label>
+        <div class="password-row">
+          <input id="pagePassword" name="password" type="password" autocomplete="current-password" required />
+          <button class="button button-dark" type="submit">Otevřít stránku</button>
+        </div>
+        <p class="password-error" id="passwordError" role="alert" hidden>Nesprávné heslo. Zkuste to prosím znovu.</p>
+      </form>
     </div>
   </section>
 
-  <section class="section planned-litters">
-    <div class="wrap planned-litters-grid">
-      <div>
-        <div class="eyebrow">AKTUÁLNĚ PLÁNUJEME</div>
-        <h2>Budoucí vrhy<br/><em>Lovely Binisi</em></h2>
+  <div id="protectedContent" hidden>
+    <section class="page-hero">
+      <div class="wrap">
+        <div class="eyebrow">LOVELY BINISI · LAGOTTO ROMAGNOLO</div>
+        <h1>Plánované vrhy</h1>
+        <p>Aktuální informace pro zájemce o štěně z naší chovatelské stanice.</p>
       </div>
+    </section>
 
-      <div class="prose planned-litters-copy">
-        <p>
-          Na této stránce budeme průběžně zveřejňovat informace o našich plánovaných vrzích,
-          předpokládaných termínech a rodičích štěňat.
-        </p>
-        <p>
-          Podrobnosti o konkrétním plánovaném spojení zde doplníme, jakmile budou aktuální.
-        </p>
-        <p>
-          Pokud máte o štěně zájem, rádi se s vámi nejprve poznáme a zodpovíme vaše otázky
-          o plemeni, našem odchovu i životě se štěnětem Lagotto Romagnolo.
-        </p>
-      </div>
-    </div>
-  </section>
+    <section class="section planned-litters">
+      <div class="wrap planned-litters-grid">
+        <div>
+          <div class="eyebrow">AKTUÁLNĚ PLÁNUJEME</div>
+          <h2>Budoucí vrhy<br/><em>Lovely Binisi</em></h2>
+        </div>
 
-  <section class="section puppy-contact">
-    <div class="wrap puppy-contact-inner">
-      <div>
-        <div class="eyebrow">MÁTE ZÁJEM O ŠTĚNĚ?</div>
-        <h2>Napište nám,<br/><em>rádi se ozveme</em></h2>
+        <div class="prose planned-litters-copy">
+          <p>
+            Na této stránce budeme průběžně zveřejňovat informace o našich plánovaných vrzích,
+            předpokládaných termínech a rodičích štěňat.
+          </p>
+          <p>
+            Podrobnosti o konkrétním plánovaném spojení zde doplníme, jakmile budou aktuální.
+          </p>
+          <p>
+            Pokud máte o štěně zájem, rádi se s vámi nejprve poznáme a zodpovíme vaše otázky
+            o plemeni, našem odchovu i životě se štěnětem Lagotto Romagnolo.
+          </p>
+        </div>
       </div>
-      <a class="button button-dark" href="/kontakt/">Kontaktujte nás <LinkIcon name="paw" /></a>
-    </div>
-  </section>
+    </section>
+
+    <section class="section puppy-contact">
+      <div class="wrap puppy-contact-inner">
+        <div>
+          <div class="eyebrow">MÁTE ZÁJEM O ŠTĚNĚ?</div>
+          <h2>Napište nám,<br/><em>rádi se ozveme</em></h2>
+        </div>
+        <a class="button button-dark" href="/kontakt/">Kontaktujte nás <LinkIcon name="paw" /></a>
+      </div>
+    </section>
+  </div>
 
   <style>
+    .password-gate {
+      min-height: 62vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(70px, 10vw, 130px) 0;
+    }
+
+    .password-gate-inner {
+      width: min(620px, 100%);
+    }
+
+    .password-gate h1 {
+      margin: 12px 0 18px;
+    }
+
+    .password-gate p {
+      max-width: 560px;
+    }
+
+    .password-form {
+      margin-top: 34px;
+    }
+
+    .password-form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .password-row {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .password-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 16px;
+      border: 1px solid rgba(25, 25, 25, .22);
+      border-radius: 2px;
+      font: inherit;
+      background: #fff;
+    }
+
+    .password-error {
+      margin-top: 12px;
+      font-size: .94rem;
+    }
+
     .planned-litters-grid {
       display: grid;
       grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
@@ -60,10 +130,59 @@ import LinkIcon from '../components/LinkIcon.astro';
     }
 
     @media (max-width: 760px) {
+      .password-row {
+        flex-direction: column;
+      }
+
+      .password-row .button {
+        width: 100%;
+      }
+
       .planned-litters-grid {
         grid-template-columns: 1fr;
         gap: 30px;
       }
     }
   </style>
+
+  <script>
+    const PASSWORD_HASH = '300ba452c27d16e7d96807412982fe45adaabe989a14ce4380a4b405ec644222';
+    const gate = document.getElementById('passwordGate');
+    const content = document.getElementById('protectedContent');
+    const form = document.getElementById('passwordForm');
+    const input = document.getElementById('pagePassword');
+    const error = document.getElementById('passwordError');
+
+    async function sha256(value) {
+      const bytes = new TextEncoder().encode(value);
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      return Array.from(new Uint8Array(digest))
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    function unlock() {
+      if (gate) gate.hidden = true;
+      if (content) content.hidden = false;
+      sessionStorage.setItem('plannedLittersUnlocked', '1');
+    }
+
+    if (sessionStorage.getItem('plannedLittersUnlocked') === '1') {
+      unlock();
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!(input instanceof HTMLInputElement)) return;
+
+      const hash = await sha256(input.value);
+      if (hash === PASSWORD_HASH) {
+        error?.setAttribute('hidden', '');
+        unlock();
+      } else {
+        error?.removeAttribute('hidden');
+        input.select();
+      }
+    });
+  </script>
 </Base>

@@ -126,4 +126,6 @@
 @media(max-width:700px){
   .hero-image{position:relative;inset:auto;width:100%;height:auto;object-fit:contain}
   .hero-inner{padding-top:54px}
+  .puppy-photo{height:auto}
+  .puppy-photo img{width:100%;height:auto}
 }

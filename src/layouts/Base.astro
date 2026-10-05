@@ -1,11 +1,50 @@
 ---
 import '../styles.css';
 import LinkIcon from '../components/LinkIcon.astro';
-const { title = 'Lovely Binisi | Lagotto Romagnolo', description = 'Chovatelská stanice Lovely Binisi v jižních Čechách. Lagotto Romagnolo, naši psi a štěňata.', noindex = false } = Astro.props;
+const {
+  title = 'Lagotto Romagnolo | Chovatelská stanice Lovely Binisi',
+  description = 'Rodinná chovatelská stanice Lagotto Romagnolo v jižních Čechách. Zdraví, povaha, socializace, naši psi a štěňata Lovely Binisi.',
+  noindex = false,
+  ogImage = '/images/hero-nikita.webp'
+} = Astro.props;
 const nav = [['/','Úvod'],['/o-nas/','O nás'],['/nasi-psi/','Naši psi'],['/stenata/','Štěňata'],['/kontakt/','Kontakt']];
 const pathname = Astro.url.pathname;
+const canonical = new URL(pathname, Astro.site ?? Astro.url.origin).toString();
+const socialImage = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.binisi.cz/#organization',
+      name: 'Lovely Binisi',
+      url: 'https://www.binisi.cz/',
+      logo: 'https://www.binisi.cz/images/logo-lovely-binisi-450.webp',
+      description: 'Chovatelská stanice Lagotto Romagnolo v jižních Čechách.',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Adamov u Českých Budějovic',
+        addressRegion: 'Jihočeský kraj',
+        addressCountry: 'CZ'
+      },
+      sameAs: [
+        'https://www.instagram.com/lagotto_lovely_binisi/',
+        'https://www.facebook.com/lovely.binisi',
+        'https://www.youtube.com/@LovelyBinisi'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.binisi.cz/#website',
+      url: 'https://www.binisi.cz/',
+      name: 'Lovely Binisi',
+      inLanguage: 'cs-CZ',
+      publisher: { '@id': 'https://www.binisi.cz/#organization' }
+    }
+  ]
+};
 ---
-<!doctype html><html lang="cs"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/>{noindex && <meta name="robots" content="noindex,nofollow,noarchive"/>}<title>{title}</title><link rel="icon" href="/images/logo-lovely-binisi-450.webp" type="image/webp"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"/></noscript></head><body>
+<!doctype html><html lang="cs"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/>{noindex && <meta name="robots" content="noindex,nofollow,noarchive"/>}<link rel="canonical" href={canonical}/><meta property="og:type" content="website"/><meta property="og:locale" content="cs_CZ"/><meta property="og:site_name" content="Lovely Binisi"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:image" content={socialImage}/><meta property="og:image:alt" content="Lovely Binisi – Lagotto Romagnolo"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={socialImage}/><title>{title}</title><script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script><link rel="icon" href="/images/logo-lovely-binisi-450.webp" type="image/webp"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"/></noscript></head><body>
 <a class="skip" href="#main">Přeskočit na obsah</a>
 <header class="header"><div class="header-inner"><a class="brand" href="/" aria-label="Lovely Binisi – úvod"><img src="/images/logo-lovely-binisi-450.webp" alt="Lovely Binisi – Lagotto Romagnolo" width="450" height="339"/><img class="brand-subtitle" src="/images/logo-subtitle-bold-450.webp" alt="" aria-hidden="true" width="450" height="339"/></a><button class="menu-toggle" aria-label="Otevřít nabídku" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Hlavní navigace">{nav.map(([href,label]) => <a href={href} aria-current={pathname === href ? 'page' : undefined}>{label}</a>)}</nav></div></header>
 <main id="main"><slot /></main>

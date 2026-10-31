@@ -168,20 +168,12 @@ import LinkIcon from '../components/LinkIcon.astro';
   </style>
 
   <script>
-    const PASSWORD_HASH = '300ba452c27d16e7d96807412982fe45adaabe989a14ce4380a4b405ec644222';
+    const PAGE_PASSWORD = 'Binisi2026!';
     const gate = document.getElementById('passwordGate');
     const content = document.getElementById('protectedContent');
     const form = document.getElementById('passwordForm');
     const input = document.getElementById('pagePassword');
     const error = document.getElementById('passwordError');
-
-    async function sha256(value) {
-      const bytes = new TextEncoder().encode(value);
-      const digest = await crypto.subtle.digest('SHA-256', bytes);
-      return Array.from(new Uint8Array(digest))
-        .map((byte) => byte.toString(16).padStart(2, '0'))
-        .join('');
-    }
 
     function unlock() {
       if (gate) {
@@ -192,20 +184,29 @@ import LinkIcon from '../components/LinkIcon.astro';
         content.hidden = false;
         content.style.display = '';
       }
-      sessionStorage.setItem('plannedLittersUnlocked', '1');
-      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      try {
+        sessionStorage.setItem('plannedLittersUnlocked', '1');
+      } catch {
+        // Stránka funguje i v prohlížečích, kde je sessionStorage omezené.
+      }
+
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    if (sessionStorage.getItem('plannedLittersUnlocked') === '1') {
-      unlock();
+    try {
+      if (sessionStorage.getItem('plannedLittersUnlocked') === '1') {
+        unlock();
+      }
+    } catch {
+      // Bez sessionStorage se stránka pouze znovu zeptá na heslo při příští návštěvě.
     }
 
-    form?.addEventListener('submit', async (event) => {
+    form?.addEventListener('submit', (event) => {
       event.preventDefault();
       if (!(input instanceof HTMLInputElement)) return;
 
-      const hash = await sha256(input.value);
-      if (hash === PASSWORD_HASH) {
+      if (input.value.trim() === PAGE_PASSWORD) {
         error?.setAttribute('hidden', '');
         unlock();
       } else {

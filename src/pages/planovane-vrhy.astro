@@ -167,52 +167,59 @@ import LinkIcon from '../components/LinkIcon.astro';
     }
   </style>
 
-  <script>
-    const PAGE_PASSWORD = 'Lagotto2027';
-    const gate = document.getElementById('passwordGate');
-    const content = document.getElementById('protectedContent');
-    const form = document.getElementById('passwordForm');
-    const input = document.getElementById('pagePassword');
-    const error = document.getElementById('passwordError');
+  <script is:inline>
+    (function () {
+      var PAGE_PASSWORD = 'Lagotto2027';
+      var STORAGE_KEY = 'plannedLittersUnlocked';
 
-    function unlock() {
-      if (gate) {
-        gate.hidden = true;
-        gate.style.display = 'none';
+      function initPasswordGate() {
+        var gate = document.getElementById('passwordGate');
+        var content = document.getElementById('protectedContent');
+        var form = document.getElementById('passwordForm');
+        var input = document.getElementById('pagePassword');
+        var error = document.getElementById('passwordError');
+
+        if (!gate || !content || !form || !input) return;
+
+        function unlock() {
+          gate.hidden = true;
+          gate.style.display = 'none';
+          content.hidden = false;
+          content.style.display = 'block';
+
+          try {
+            sessionStorage.setItem(STORAGE_KEY, '1');
+          } catch (e) {}
+        }
+
+        try {
+          if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+            unlock();
+            return;
+          }
+        } catch (e) {}
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          var enteredPassword = String(input.value || '').trim();
+
+          if (enteredPassword === PAGE_PASSWORD) {
+            if (error) error.hidden = true;
+            unlock();
+          } else {
+            if (error) error.hidden = false;
+            input.focus();
+            input.select();
+          }
+        });
       }
-      if (content) {
-        content.hidden = false;
-        content.style.display = '';
-      }
 
-      try {
-        sessionStorage.setItem('plannedLittersUnlocked', '1');
-      } catch {
-        // Stránka funguje i v prohlížečích, kde je sessionStorage omezené.
-      }
-
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-
-    try {
-      if (sessionStorage.getItem('plannedLittersUnlocked') === '1') {
-        unlock();
-      }
-    } catch {
-      // Bez sessionStorage se stránka pouze znovu zeptá na heslo při příští návštěvě.
-    }
-
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!(input instanceof HTMLInputElement)) return;
-
-      if (input.value.trim() === PAGE_PASSWORD) {
-        error?.setAttribute('hidden', '');
-        unlock();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPasswordGate, { once: true });
       } else {
-        error?.removeAttribute('hidden');
-        input.select();
+        initPasswordGate();
       }
-    });
+    })();
   </script>
 </Base>

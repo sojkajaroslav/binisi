@@ -1,0 +1,140 @@
+<aside id="analytics-consent" class="cookie-notice" aria-labelledby="cookie-title" hidden>
+  <div class="cookie-copy">
+    <strong id="cookie-title">Pomůžete nám poznat návštěvnost?</strong>
+    <p>Se souhlasem používáme Google Analytics, abychom věděli, jaké stránky vás zajímají. Bez souhlasu měření nezapneme.</p>
+    <details>
+      <summary>Podrobnosti o měření</summary>
+      <p>Měření pro Lovely Binisi zajišťuje Google. Zpracovává údaje o navštívených stránkách, zařízení a zdroji návštěvy. Analytické cookies rozlišují návštěvy; jejich platnost je nejvýše 6 měsíců. Reklamní funkce nezapínáme. Volbu uložíme v tomto prohlížeči na 180 dní a můžete ji kdykoliv změnit přes „Nastavení cookies“ v patičce. Dotazy: <a href="mailto:katerina.sojkova@gmail.com">katerina.sojkova@gmail.com</a>. <a href="https://policies.google.com/technologies/partner-sites?hl=cs" target="_blank" rel="noopener noreferrer">Jak Google používá údaje</a>.</p>
+    </details>
+  </div>
+  <div class="cookie-actions">
+    <button type="button" id="analytics-reject">Odmítnout</button>
+    <button type="button" id="analytics-accept">Přijmout</button>
+  </div>
+</aside>
+
+<script is:inline>
+(() => {
+  const measurementId = 'G-4CFXMZFRER';
+  const storageKey = 'binisi.analytics-consent.v1';
+  const lifetime = 180 * 24 * 60 * 60 * 1000;
+  const banner = document.getElementById('analytics-consent');
+  const settings = document.getElementById('cookie-settings');
+  const accept = document.getElementById('analytics-accept');
+  const reject = document.getElementById('analytics-reject');
+  if (!banner || !settings || !accept || !reject) return;
+  let loaded = false;
+  let returnFocus = false;
+
+  function readChoice() {
+    try {
+      const value = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      return value && (value.choice === 'accepted' || value.choice === 'rejected') &&
+        Number.isFinite(value.expires) && value.expires > Date.now() ? value.choice : null;
+    } catch { return null; }
+  }
+
+  function clearCookies() {
+    const domains = location.hostname.split('.');
+    const scopes = [''];
+    while (domains.length > 1) {
+      scopes.push('; domain=' + domains.join('.'));
+      domains.shift();
+    }
+    document.cookie.split(';').forEach(cookie => {
+      const name = cookie.split('=')[0].trim();
+      if (/^_ga(?:_|$)/.test(name)) scopes.forEach(scope => {
+        document.cookie = name + '=; Max-Age=0; path=/' + scope + '; SameSite=Lax; Secure';
+      });
+    });
+  }
+
+  function startAnalytics() {
+    if (loaded) return;
+    loaded = true;
+    window['ga-disable-' + measurementId] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      analytics_storage: 'denied', ad_storage: 'denied',
+      ad_user_data: 'denied', ad_personalization: 'denied'
+    });
+    window.gtag('consent', 'update', { analytics_storage: 'granted' });
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId, {
+      allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 180 * 24 * 60 * 60, cookie_update: false
+    });
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+    document.head.appendChild(script);
+  }
+
+  function choose(choice) {
+    try { localStorage.setItem(storageKey, JSON.stringify({ choice, expires: Date.now() + lifetime })); } catch {}
+    banner.hidden = true;
+    settings.setAttribute('aria-expanded', 'false');
+    if (returnFocus) settings.focus();
+    if (choice === 'accepted') startAnalytics();
+    else {
+      window['ga-disable-' + measurementId] = true;
+      clearCookies();
+      // Reload unloads an already running Google tag after consent is withdrawn.
+      if (loaded) location.reload();
+    }
+  }
+
+  accept.addEventListener('click', () => choose('accepted'));
+  reject.addEventListener('click', () => choose('rejected'));
+  settings.addEventListener('click', () => {
+    banner.hidden = !banner.hidden;
+    settings.setAttribute('aria-expanded', String(!banner.hidden));
+    if (!banner.hidden) { returnFocus = true; reject.focus(); }
+  });
+  banner.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && readChoice()) {
+      banner.hidden = true;
+      settings.setAttribute('aria-expanded', 'false');
+      settings.focus();
+    }
+  });
+  window.addEventListener('storage', event => {
+    if (event.key === storageKey || event.key === null) {
+      if (readChoice() === 'accepted') startAnalytics();
+      else {
+        window['ga-disable-' + measurementId] = true;
+        clearCookies();
+        if (loaded) location.reload();
+        else { banner.hidden = !!readChoice(); settings.setAttribute('aria-expanded', String(!banner.hidden)); }
+      }
+    }
+  });
+  const choice = readChoice();
+  if (choice === 'accepted') startAnalytics();
+  else {
+    window['ga-disable-' + measurementId] = true;
+    clearCookies();
+    banner.hidden = choice === 'rejected';
+    settings.setAttribute('aria-expanded', String(!banner.hidden));
+  }
+})();
+</script>
+
+<style>
+  .cookie-notice[hidden] { display: none; }
+  .cookie-notice { position: fixed; z-index: 30; bottom: 18px; left: 18px; right: 18px; max-width: 1050px; margin: auto; display: flex; align-items: center; gap: 24px; padding: 20px 24px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 6px 32px #30272426; max-height: 75svh; overflow-y: auto; }
+  .cookie-copy { flex: 1; min-width: 0; }
+  .cookie-copy strong { font-size: 16px; }
+  .cookie-copy p { margin: 8px 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+  summary { font-size: 13px; color: #743e58; cursor: pointer; }
+  .cookie-copy a { text-decoration: underline; overflow-wrap: anywhere; }
+  .cookie-actions { display: flex; gap: 10px; }
+  .cookie-actions button { min-height: 44px; padding: 10px 18px; border: 1px solid #743e58; border-radius: 6px; background: #fff; color: #743e58; font-weight: 700; cursor: pointer; }
+  .cookie-actions button:hover { background: var(--cream); }
+  button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #743e58; outline-offset: 3px; }
+  @media (max-width: 700px) {
+    .cookie-notice { bottom: max(12px, env(safe-area-inset-bottom)); left: 12px; right: 12px; padding: 16px; flex-direction: column; align-items: stretch; gap: 12px; }
+    .cookie-actions button { flex: 1; }
+  }
+</style>
